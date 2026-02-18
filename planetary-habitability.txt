@@ -1,0 +1,135 @@
+Planetary habitability in the Solar System is the study that searches the possible existence of past or present extraterrestrial life in those celestial bodies. As exoplanets are too far away and can only be studied by indirect means, the celestial bodies in the Solar System allow for a much more detailed study: direct telescope observation, space probes, rovers and even human spaceflight.
+
+Aside from Earth, no planets in the solar system are known to harbor life. Mars, Europa, and Titan are considered to have once had or currently have conditions permitting the existence of life. Multiple rovers have been sent to Mars, while Europa Clipper is planned to reach Europa in 2030, and the Dragonfly space probe is planned to launch in 2027.
+
+Outer space
+
+The vacuum of outer space is a harsh environment. Besides the vacuum itself, temperatures are extremely low and there is a high amount of radiation from the Sun. Multicellular life cannot endure such conditions. Bacteria can not thrive in the vacuum either, but may be able to survive under special circumstances. An experiment by microbiologist Akihiko Yamagishi held at the International Space Station exposed a group of bacteria to the vacuum, completely unprotected, for three years. The Deinococcus radiodurans survived the exposure. In earlier experiments, it had survived radiation, vacuum, and low temperatures in lab-controlled experiments. The outer cells of the group had died, but their remains shielded the cells on the inside, which were able to survive.
+
+Those studies give credence to the theory of panspermia, which proposes that life may be moved across planets within meteorites. Yamagishi even proposed the term massapanspermia for cells moving across the space in clumps instead of rocks. However, astrobiologist Natalie Grefenstette considers that unprotected cell clumps would have no protection during the ejection from one planet and the re-entry into another one.
+
+Mercury
+
+According to NASA, Mercury is not a suitable planet for Earth-like life. It has a surface boundary exosphere instead of a layered atmosphere, extreme temperatures that range from 800 °F (430 °C) during the day to -290 °F (-180 °C) during the night, and high solar radiation. It is unlikely that any living beings can withstand those conditions. It is unlikely to ever find remains of ancient life, either. If any type of life ever appeared on the planet, it would have suffered an extinction event in a very short time. It is also suspected that most of the planetary surface was stripped away by a large impact, which would have also removed any life on the planet.
+
+The spacecraft MESSENGER found evidence of water ice on Mercury, within permanently shadowed craters not reached by sunlight. As a result of the thin atmosphere, temperatures within them stay cold and there is very little sublimation. There may be scientific support, based on studies reported in March 2020, for considering that parts of the planet Mercury may have hosted sub-surfaced volatiles. The geology of Mercury is considered to be shaped by impact craters and earthquakes caused by a large impact at the Caloris basin. The studies suggest that the required times would not be consistent and that it could be instead that sub-surface volatiles were heated and sublimated, causing the surface to fall apart. Those volatiles may have condensed at craters elsewhere on the planet, or lost to space by solar winds. It is not known which volatiles may have been part of this process.
+
+Venus
+
+The surface of Venus is completely inhospitable for life. As a result of a runaway greenhouse effect Venus has a temperature of 900 degrees Fahrenheit (475 degrees Celsius), hot enough to melt lead. It is the hottest planet in the Solar System, even more than Mercury, despite being farther away from the Sun. Likewise, the atmosphere of Venus is almost completely carbon dioxide, and the atmospheric pressure is 90 times that of Earth. There is no significant temperature change during the night, and the low axial tilt, only 3.39 degrees with respect to the Sun, makes temperatures quite uniform across the planet and without noticeable seasons.
+
+Venus likely had liquid water on its surface for at least a few million years after its formation. The Venus Express detected that Venus loses oxygen and hydrogen to space, and that the escaping hydrogen doubles the oxygen. The source could be Venusian water, that the ultraviolet radiation from the Sun splits into its basic composition. There is also deuterium in the planet's atmosphere, a heavy type of hydrogen that is less capable of escaping the planet's gravity. However, the surface water may have been only atmospheric and not form any oceans. Astrobiologist David Grinspoon considers that although there is no proof of Venus having oceans, it is likely that it had them, as a result of similar processes to those that took place on Earth. He considers that those oceans may have lasted for 600 million years, and were lost 4 billion years ago. The growing scarcity of liquid water altered the carbon cycle, reducing carbon sequestration. With most carbon dioxide staying in the atmosphere for good, the greenhouse effect worsened even more.
+
+Nevertheless, between the altitudes of 50 and 65 kilometers, the pressure and temperature are Earth-like, and it may accommodate thermoacidophilic extremophile microorganisms in the acidic upper layers of the Venusian atmosphere. According to this theory, life would have started in Venusian oceans when the planet was cooler, adapt to other environments as it did on Earth, and remain at the last habitable zone of the planet. The putative detection of an absorption line of phosphine in Venus's atmosphere, with no known pathway for abiotic production, led to speculation in September 2020 that there could be extant life currently present in the atmosphere. Later research attributed the spectroscopic signal that was interpreted as phosphine to sulfur dioxide, or found that in fact there was no absorption line.
+
+Earth
+
+Earth is the only celestial body known for sure to have generated living beings, and thus the only current example of a habitable planet. At a distance of 1 AU from the Sun, it is within the circumstellar habitable zone of the Solar system, which means it can have oceans of water in a liquid state. There also exist a great number of elements required by lifeforms, such as carbon, oxygen, nitrogen, hydrogen, and phosphorus. The Sun provides energy for most ecosystems on Earth, processed by vegetals with photosynthesis. However, there are also ecosystems that form in places that never receive sunlight, such as deep areas of Earth's oceans. Organisms in these environments must utilize other forms of energy production. One such example is chemosynthesis, which takes place in isolated environments like Movile Cave.
+
+The atmosphere of Earth also plays an important role. The ozone layer protects the planet from the harmful radiations from the Sun, and free oxygen is abundant enough for the breathing needs of terrestrial life. Earth's magnetosphere, generated by its active core, is also important for the long-term habitability of Earth, as it prevents the solar winds from stripping the atmosphere out of the planet. The atmosphere is thick enough to generate atmospheric pressure at sea level that keeps water in a liquid state, but it is not strong enough to be harmful either.
+
+Many other elements benefit the presence of life, but it is unclear whether life would have thrived without them. The planet is not tidally locked, and the atmosphere allows the distribution of heat, so temperatures are largely uniform and without great swift changes. Bodies of water cover most of the world, but they still leave large landmasses and interact with rocks on their seabeds. A nearby celestial body, the Moon, subjects the Earth to substantial, but not catastrophic, tidal forces.
+
+Following a suggestion made by Carl Sagan, the Galileo probe studied Earth from a distance, using methods typically applied to study other planets. Atmospheric levels of oxygen and methane confirmed the presence of life on Earth. The red edge was evidence of plants. The probe even detected a technosignature – strong radio waves that would not be present naturally.
+
+The Moon
+
+Despite its proximity to Earth, the Moon is mostly inhospitable to life. No native lunar life has ever been found, nor have signs of life been located in samples of lunar rocks and soil. In 2019, the Israeli craft Beresheet crash-landed on the Moon while carrying tardigrades. While their chances of survival on the Moon were "extremely high," the force of the crash – not the Moon's environment – likely killed them.
+
+Many important conditions for life are not present on the Moon; its atmosphere is almost nonexistent, it holds no liquid water (though there is solid ice at some permanently shadowed craters), and it provides no protection from the radiation of the Sun.
+
+However, circumstances may have been different in the past. There are two possible time periods of lunar habitability: right after its formation, and during a period of high volcanic activity. In the first case, it is debated how many volatiles would survive in the debris disk, but some water could have been retained thanks to its difficulty to diffuse in a silicate-dominated vapor. In the second case, owing to extreme outgassing from lunar magma, the Moon during that time could have had an atmosphere of 10 millibars. Although just 1% of the atmosphere of Earth, that number is higher than on Mars; those conditions may have been sufficient to allow liquid surface water, such as in the theorized Lunar magma ocean. This theory is supported by studies of Lunar rocks and soil, both of which were more hydrated than expected.
+
+Studies of Lunar volcanism also reveal water within the Moon; some models indicate that the Lunar mantle would have had a composition of water similar to Earth's upper mantle. These findings may be confirmed by studies on the Moon's crust that would suggest an ancient exposition to magma water. The early Moon may have also had its own magnetic field, deflecting solar winds. Life on the Moon could have resulted from a local process of abiogenesis, though it could have also stemmed from panspermia from Earth.
+
+Dirk Schulze-Makuch, professor of planetary science and astrobiology at the University of London, considers that those theories may be properly tested if a future expedition to the Moon seeks markers of life on lunar samples from the age of volcanic activity. They could then test the survival of microorganisms in a simulated lunar environment while imitating that specific time period.
+
+Mars
+
+Mars is the celestial body in the solar system with the most similarities to Earth. A Mars sol lasts almost the same amount of time as an Earth day, and its axial tilt gives it similar seasons. There is water on Mars, most of it frozen at the Martian polar ice caps, and some of it underground. However, there are many obstacles to its habitability. The surface temperature averages about -60 degrees Celsius (-80 degrees Fahrenheit). There are no permanent bodies of liquid water on the surface. The atmosphere is thin, and more than 96% of it is carbon dioxide, which is toxic. Its atmospheric pressure is below 1% that of Earth. Combined with its lack of a magnetosphere, Mars is open to harmful radiation from the Sun. Although no astronauts have set foot on Mars, the planet has been studied in great detail by rovers. So far, no native lifeforms have been found. The origin of the potential biosignature of methane observed in the atmosphere of Mars is unexplained, although hypotheses not involving life have been proposed.
+
+These conditions may have been different in the past. Mars could have had bodies of water, a thicker atmosphere, and a working magnetosphere; Mars may have been habitable then. The rover Opportunity first discovered evidence pointing to a watery past, but later studies found that the territories studied by the rover were in contact with sulfuric acid, not water. The Gale crater, on the other hand, has clay minerals that could have only been formed in water with a neutral pH. For this reason, NASA selected it for the landing of the Curiosity rover.
+
+The crater Jezero is suspected of being the location of an ancient lake. For this reason, NASA sent the Perseverance rover to investigate. Although no living organisms have been found, rocks could contain fossil traces of ancient life if the lake had any. Microscopic life may have escaped the worsening conditions of the surface by moving underground. An experiment simulated those conditions to check the reactions of lichen and found that it survived by finding refuge in rock cracks and soil gaps.
+
+Although many geological studies suggest that Mars was habitable in the past, that does not necessarily mean that it was inhabited. Finding fossils of microscopic life of such distant times is an incredibly difficult task, even for Earth's earliest known life forms. Such fossils require a material capable of preserving cellular structures and surviving degradational rock-forming and environmental processes. The knowledge of taphonomy for those cases is limited to the sparse fossils found so far and is based on Earth's environment, which greatly differs from that of Mars'.
+
+Asteroid belt
+
+Ceres
+
+Ceres, the only dwarf planet in the asteroid belt, has a thin water-vapor atmosphere. The vapor is likely the result of impacts of meteorites containing ice, but there is hardly an atmosphere besides said vapor. Nevertheless, the presence of water has led to speculation that life may be possible there. It is even proposed that Ceres could be the source of life on Earth by panspermia, as its small size would allow fragments of it to escape its gravity more easily. Although the dwarf planet might not have living things today, there could be signs it harbored life in the past.
+
+The water in Ceres, however, is not liquid water on the surface. It comes frozen in meteorites and sublimates to vapor. The dwarf planet is out of the habitable zone, is too small to have sustained tectonic activity, and does not orbit a tidally disruptive body like the moons of the gas giants. However, studies by the Dawn space probe confirmed that Ceres has liquid salt-enriched water underground.
+
+Jupiter
+
+Carl Sagan and others in the 1960s and 1970s computed conditions for hypothetical microorganisms living in the atmosphere of Jupiter. The intense radiation and other conditions, however, do not appear to permit encapsulation and molecular biochemistry, so life there is thought unlikely. In addition, as a gas giant, Jupiter has no surface, so any potential microorganisms would have to be airborne. Although there are some layers of the atmosphere that may be habitable, Jovian climate is in constant turbulence, and any microorganisms present would eventually be sucked into the deeper parts of Jupiter. In those areas, atmospheric pressure is 1,000 times that of Earth, and temperatures can reach 10,000 degrees.
+
+However, the Great Red Spot contains water clouds. Astrophysicist Máté Ádámkovics said that "where there's the potential for liquid water, the possibility of life cannot be completely ruled out. So, though it appears very unlikely, life on Jupiter is not beyond the range of our imaginations."
+
+Callisto
+
+Callisto has a thin atmosphere and a subsurface ocean, and may be a candidate for hosting life. It is more distant to the planet than other moons, so the tidal forces are weaker, but also it receives less harmful radiation.
+
+Europa
+
+Beneath its icy surface, Europa may have a liquid ocean, which could be a habitable environment. This potential ocean was first noticed by the two Voyager spacecraft and later backed by telescope studies from Earth. Current estimations consider that this ocean may contain twice the amount of water of all Earth's oceans combined, despite Europa's smaller size. The ice crust would be between 15 and 25 miles thick and may represent an obstacle to studying this ocean, though it may be probed via possible eruption columns that reach outer space.
+
+Life would need liquid water, a number of chemical elements, and a source of energy. Although Europa may have the first two elements, it is unconfirmed whether it has all three of them. A potential source of energy would be a hydrothermal vent, which has not been detected yet.
+
+Solar light is not considered a viable energy source, as it is too weak in the Jupiter system and would also have to cross the thick ice surface. Other proposed energy sources, although still speculative, are the magnetosphere of Jupiter and kinetic energy.
+
+Unlike the oceans of Earth, the oceans of Europa would be under a permanent thick ice layer, which may make water aeration difficult. Richard Greenberg of the University of Arizona considers that the ice layer would not be a homogeneous block, but, instead, the ice would instead be in a cycle, renewing itself at the top and burying the surface ice deeper. This process would eventually drop the surface ice into the lower side in contact with the ocean. This process would allow some air from the surface to eventually reach the ocean below.
+
+Greenberg considers that the first surface oxygen to reach the oceans would have done so after a couple of billion years, allowing life to emerge and develop defenses against oxidation. He also considers that, once the process started, the amount of oxygen would even allow the development of multicellular beings and perhaps even sustain a population comparable to all the fish on Earth.
+
+On 11 December 2013, NASA reported the detection of "clay-like minerals" (specifically, phyllosilicates), often associated with organic materials, on the icy crust of Europa. The presence of the minerals may have been the result of a collision with an asteroid or comet, according to the scientists. The Europa Clipper, which would assess the habitability of Europa, launched in 2024 and is set to reach the moon in 2030. Europa's subsurface ocean is considered the best target for the discovery of life.
+
+Ganymede
+
+Ganymede, the largest moon in the Solar system, is the only one that has a magnetic field of its own. The surface seems similar to Mercury and the Moon, and is likely as hostile to life as them. It is suspected that it has an ocean below the surface, and that primitive life may be possible there. This suspicion is caused because of the unusually high level of water vapor in the thin atmosphere of Ganymede. The moon likely has several layers of ice and liquid water, and finally a liquid layer in contact with the mantle. The core, the likely cause of Ganymede's magnetic field, would have a temperature near 1600 K. This particular environment is suspected to be likely to be habitable. The moon is set to be the subject of investigation by the European Space Agency's Jupiter Icy Moons Explorer, which was launched in 2023 and will reach the Jovian system in 2031.
+
+Io
+
+Of all the Galilean moons, Io is the closest to the planet. It is the moon with the highest volcanic activity in the Solar System, as a result of the tidal forces from the planet and its oval orbit around it. Even so, the surface is still cold: -143 Cº. The atmosphere is 200 times lighter than Earth's atmosphere, the proximity of Jupiter gives a lot of radiation, and it is completely devoid of water. However, it may have had water in the past, and perhaps lifeforms underground.
+
+Saturn
+
+Similarly to Jupiter, Saturn is not likely to host life. It is a gas giant and the temperatures, pressures, and materials found in it are too dangerous for life. The planet is hydrogen and helium for the most part, with trace amounts of ice water. Temperatures near the surface are near -150 C. The planet gets warmer on the inside, but in the depth where water may be liquid the atmospheric pressure is too high.
+
+Enceladus
+
+Enceladus, the sixth-largest moon of Saturn, has some of the conditions for life, including geothermal activity and water vapor, as well as possible under-ice oceans heated by tidal effects. The Cassini–Huygens probe detected carbon, hydrogen, nitrogen and oxygen—all key elements for supporting life—during its 2005 flyby through one of Enceladus's geysers spewing ice and gas. The temperature and density of the plumes indicate a warmer, watery source beneath the surface. Of the bodies on which life is possible, living organisms could most easily enter the other bodies of the Solar System from Enceladus.
+
+Mimas
+
+Mimas, the seventh-largest moon of Saturn, is similar in size and orbit location to Enceladus. In 2024, based on orbital data from the Cassini–Huygens mission, Mimas was calculated to contain a large tidally heated subsurface ocean starting ~20–30 km below the heavily cratered but old and well-preserved surface, hinting at the potential for life.
+
+Titan
+
+Titan, the largest moon of Saturn, is the only known moon in the Solar System with a significant atmosphere. Data from the Cassini–Huygens mission refuted the hypothesis of a global hydrocarbon ocean, but later demonstrated the existence of liquid hydrocarbon lakes in the polar regions—the first stable bodies of surface liquid discovered outside Earth. Further data from Cassini have strengthened evidence that Titan likely harbors a layer of liquid water under its ice shell. Analysis of data from the mission has uncovered aspects of atmospheric chemistry near the surface that are consistent with—but do not prove—the hypothesis that organisms there, if present, could be consuming hydrogen, acetylene and ethane, and producing methane. NASA's Dragonfly mission is slated to land on Titan in the mid-2030s with a VTOL-capable rotorcraft with a launch date set for 2027.
+
+Uranus
+
+The planet Uranus, an ice giant, is unlikely to be habitable. The local temperatures and pressures may be too extreme, and the materials too volatile. The only spacecraft to visit, and thus observe, Uranus and its moons in detail is Voyager 2 in 1986.
+
+Uranian moons
+
+The five major moons of Uranus, however, may have been home to tidally heated subsurface oceans at some point in their histories, based on observations of Ariel's and Miranda's variegated geology, combined with computer models of the four largest moons, with Titania, the largest, deemed the most likely.
+
+Neptune
+
+The planet Neptune, another ice giant explored by Voyager 2, is also unlikely to be habitable. The local temperatures and pressures may be too extreme, and the materials too volatile.
+
+Triton
+
+The moon Triton, however, was thoroughly shown to have cryovolcanism on its surface, as well as deposits of water ice and relatively young and smooth geology for its age, raising the possibility of a subsurface ocean.
+
+Pluto
+
+The dwarf planet Pluto is too cold to sustain life on the surface. It has an average of -232 °C, and surface water only exists in a rocky state. The interior of Pluto may be warmer and perhaps contain a subsurface ocean. Also, the possibility of geothermal activity comes into play. That combined with the fact that Pluto has an eccentric orbit, making it sometimes closer to the sun, means that there is a slight chance that the dwarf planet could contain life.
+
+Kuiper belt
+
+The dwarf planet Makemake is not habitable, due to its extremely low temperatures. The same goes for Haumea and Eris.
