@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
-# ------------------------------------------------------------------
-# run.sh
-# Creates a virtual environment, installs dependencies, and runs
-# text_to_kg.py.
-#
-# Usage:
-#   ./run.sh              # create venv + run
-#   ./run.sh --clean      # delete venv & DB, recreate everything
-# ------------------------------------------------------------------
+# Create venv, install deps, and run text_to_kg.py.
+# Usage: ./run.sh [--clean]
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

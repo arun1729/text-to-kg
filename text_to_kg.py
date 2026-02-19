@@ -9,21 +9,21 @@ Pipeline:
   6. Query: traversal, semantic search, and hybrid
 """
 
-import os
+import glob
 import json
-import time
+import os
 import re
+import time
 from collections import Counter
+
+from cog.torque import Graph
 from dotenv import load_dotenv
 from openai import OpenAI
-from cog.torque import Graph
 
 load_dotenv()
 
 DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "kg_data.json")
 TEXT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "planetary-habitability.txt")
-
-# ── Ontology ────────────────────────────────────────────────────────────────
 
 ONTOLOGY = {
     "entity_types": {
@@ -63,6 +63,34 @@ ONTOLOGY = {
     },
 }
 
+ALIASES = {
+    "james webb space telescope": "jwst",
+    "james webb": "jwst",
+    "webb telescope": "jwst",
+    "webb": "jwst",
+    "jst": "jwst",
+    "perseverance rover": "perseverance",
+    "curiosity rover": "curiosity",
+    "opportunity rover": "opportunity",
+    "spirit rover": "spirit",
+    "europa clipper mission": "europa clipper",
+    "cassini-huygens": "cassini",
+    "cassini spacecraft": "cassini",
+    "huygens probe": "huygens",
+    "dragonfly mission": "dragonfly",
+    "h2o": "water",
+    "liquid water": "water",
+    "ch4": "methane",
+    "co2": "carbon dioxide",
+    "carbon dioxide (co2)": "carbon dioxide",
+    "nh3": "ammonia",
+    "h2": "hydrogen",
+    "nacl": "sodium chloride",
+    "european space agency": "esa",
+    "national aeronautics and space administration": "nasa",
+    "japan aerospace exploration agency": "jaxa",
+}
+
 
 def ontology_prompt_block() -> str:
     """Format the ontology as a prompt-friendly string."""
@@ -75,12 +103,10 @@ def ontology_prompt_block() -> str:
     return "\n".join(lines)
 
 
-# ── Step 1: Entity Extraction ───────────────────────────────────────────────
-
 def extract_entities(client, text: str) -> list[dict]:
     """Extract typed entities from text, guided by the ontology."""
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5",
         messages=[
             {
                 "role": "system",
@@ -107,14 +133,12 @@ def extract_entities(client, text: str) -> list[dict]:
     return json.loads(raw)
 
 
-# ── Step 2: Relationship Extraction ─────────────────────────────────────────
-
 def extract_relationships(client, text: str, entities: list[dict]) -> list[dict]:
     """Extract typed relationships between known entities."""
     entity_list = "\n".join(f"- {e['name']} ({e['type']})" for e in entities)
 
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5",
         messages=[
             {
                 "role": "system",
@@ -152,20 +176,14 @@ def extract_relationships(client, text: str, entities: list[dict]) -> list[dict]
         raw = raw.split("\n", 1)[1].rsplit("```", 1)[0]
     parsed = json.loads(raw)
     if not parsed:
-        print(f"  ⚠ LLM returned empty relationship list. Raw response:\n    {response.choices[0].message.content[:500]}")
         return parsed
 
-    print(f"  Sample relationship keys: {list(parsed[0].keys())}")
-
-    # Handle alternative format where predicate is used as key name:
-    #   {"subject": "X", "ORBITS": "Y"} → {"subject": "X", "predicate": "ORBITS", "object": "Y"}
     valid_rel_keys = set(ONTOLOGY["relationship_types"].keys())
     normalized = []
     for r in parsed:
         if "predicate" in r and "object" in r:
             normalized.append(r)
         else:
-            # Look for a key that matches a relationship type
             for key in r:
                 upper_key = key.strip().upper().replace(" ", "_").replace("-", "_")
                 if upper_key in valid_rel_keys and key != "subject":
@@ -174,12 +192,8 @@ def extract_relationships(client, text: str, entities: list[dict]) -> list[dict]
                         "predicate": upper_key,
                         "object": r[key],
                     })
-    if len(normalized) != len(parsed):
-        print(f"  ⚠ Normalized {len(parsed)} raw → {len(normalized)} relationships (fixed key format)")
     return normalized
 
-
-# ── Step 3: Entity Resolution ───────────────────────────────────────────────
 
 def normalize_name(name: str) -> str:
     """Normalize an entity name to a canonical form."""
@@ -188,43 +202,11 @@ def normalize_name(name: str) -> str:
     return name
 
 
-# Common aliases → canonical name
-ALIASES = {
-    "james webb space telescope": "jwst",
-    "james webb": "jwst",
-    "webb telescope": "jwst",
-    "webb": "jwst",
-    "jst": "jwst",
-    "perseverance rover": "perseverance",
-    "curiosity rover": "curiosity",
-    "opportunity rover": "opportunity",
-    "spirit rover": "spirit",
-    "europa clipper mission": "europa clipper",
-    "cassini-huygens": "cassini",
-    "cassini spacecraft": "cassini",
-    "huygens probe": "huygens",
-    "dragonfly mission": "dragonfly",
-    "h2o": "water",
-    "liquid water": "water",
-    "ch4": "methane",
-    "co2": "carbon dioxide",
-    "carbon dioxide (co2)": "carbon dioxide",
-    "nh3": "ammonia",
-    "h2": "hydrogen",
-    "nacl": "sodium chloride",
-    "european space agency": "esa",
-    "national aeronautics and space administration": "nasa",
-    "japan aerospace exploration agency": "jaxa",
-}
-
-
 def resolve_entities(
     entities: list[dict],
     relationships: list[dict],
 ) -> tuple[list[dict], list[tuple[str, str, str]]]:
     """Normalize entity names and deduplicate. Returns resolved entities and triples."""
-
-    # Build name → canonical mapping
     canonical = {}
     for e in entities:
         raw = e["name"]
@@ -233,7 +215,6 @@ def resolve_entities(
         canonical[raw] = canon
         canonical[norm] = canon
 
-    # Deduplicate entities
     seen = {}
     for e in entities:
         canon = canonical.get(e["name"], normalize_name(e["name"]))
@@ -242,65 +223,40 @@ def resolve_entities(
 
     resolved_entities = [{"name": k, "type": v} for k, v in seen.items()]
 
-    # Resolve relationships
     triples = []
     valid_rels = set(ONTOLOGY["relationship_types"].keys())
-    rejected_preds = Counter()
-    self_loops = 0
-    skipped_malformed = 0
     for r in relationships:
-        # Handle varying key names from the LLM
         subj_raw = r.get("subject") or r.get("source") or r.get("head")
         pred_raw = r.get("predicate") or r.get("relation") or r.get("relationship") or r.get("type") or r.get("rel")
         obj_raw = r.get("object") or r.get("target") or r.get("tail")
 
         if not all([subj_raw, pred_raw, obj_raw]):
-            skipped_malformed += 1
             continue
 
         subj = canonical.get(subj_raw, normalize_name(subj_raw))
         pred = pred_raw.strip().upper().replace(" ", "_").replace("-", "_")
         obj = canonical.get(obj_raw, normalize_name(obj_raw))
 
-        # Also try looking up normalized versions of subject/object
         if subj_raw not in canonical:
             subj = canonical.get(normalize_name(subj_raw), normalize_name(subj_raw))
         if obj_raw not in canonical:
             obj = canonical.get(normalize_name(obj_raw), normalize_name(obj_raw))
 
-        # Validate predicate
         if pred not in valid_rels:
-            rejected_preds[r["predicate"]] += 1
             continue
-
-        # Skip self-loops
         if subj == obj:
-            self_loops += 1
             continue
 
         triples.append((subj, pred.lower(), obj))
 
-    if rejected_preds:
-        print(f"  ⚠ Rejected {sum(rejected_preds.values())} relationships with unknown predicates:")
-        for pred, count in rejected_preds.most_common(10):
-            print(f"    '{pred}' ×{count}")
-    if self_loops:
-        print(f"  ⚠ Skipped {self_loops} self-loop triples")
-    if skipped_malformed:
-        print(f"  ⚠ Skipped {skipped_malformed} malformed relationships (missing subject/predicate/object)")
-
-    # Deduplicate triples
     triples = list(set(triples))
     return resolved_entities, triples
 
-
-# ── Step 4: Embedding ───────────────────────────────────────────────────────
 
 def embed_entities(client, entities: list[dict]) -> dict[str, list[float]]:
     """Embed entities using their name + type for richer semantics."""
     texts = [f"{e['name']} ({e['type']})" for e in entities]
     names = [e["name"] for e in entities]
-
     response = client.embeddings.create(
         model="text-embedding-3-small",
         input=texts,
@@ -310,8 +266,6 @@ def embed_entities(client, entities: list[dict]) -> dict[str, list[float]]:
         for name, item in zip(names, response.data)
     }
 
-
-# ── Persistence ─────────────────────────────────────────────────────────────
 
 def save_data(
     entities: list[dict],
@@ -332,7 +286,7 @@ def save_data(
 
 
 def load_data() -> tuple[list[dict], list[tuple[str, str, str]], dict[str, list[float]]]:
-    """Load data from JSON."""
+    """Load previously extracted data from JSON."""
     with open(DATA_FILE, "r") as f:
         data = json.load(f)
     entities = data.get("entities", [])
@@ -343,7 +297,11 @@ def load_data() -> tuple[list[dict], list[tuple[str, str, str]], dict[str, list[
     return entities, triples, embeddings
 
 
-# ── Graph Construction ──────────────────────────────────────────────────────
+def load_text(path: str) -> str:
+    """Read the full source text file."""
+    with open(path, "r") as f:
+        return f.read().strip()
+
 
 def build_graph(
     triples: list[tuple[str, str, str]],
@@ -364,15 +322,12 @@ def build_graph(
     return g
 
 
-# ── Query Helpers ───────────────────────────────────────────────────────────
-
 def fmt_result(result) -> str:
     """Format a CogDB result dict into readable lines."""
     if not result or "result" not in result:
         return "  (no results)"
-    items = result["result"]
     lines = []
-    for item in items:
+    for item in result["result"]:
         if isinstance(item, dict):
             parts = [f"{k}={v}" for k, v in item.items() if k != "id" or len(item) == 1]
             if "id" in item and len(item) > 1:
@@ -395,7 +350,7 @@ def summarize_result(result) -> list[str]:
 
 
 def print_query(number: int, question: str, torque_str: str, result):
-    """Print a query with question, Torque expression, and raw graph result."""
+    """Print a query with question, Torque expression, and result."""
     print(f"\n{'─' * 60}")
     print(f"  Q{number}: {question}")
     print(f"  Torque:  {torque_str}")
@@ -403,10 +358,8 @@ def print_query(number: int, question: str, torque_str: str, result):
     print(fmt_result(result))
 
 
-# ── Queries ─────────────────────────────────────────────────────────────────
-
 def embed_query(client, g: Graph, text: str) -> str:
-    """Embed an arbitrary query string and store it in the graph so k_nearest can find it."""
+    """Embed a query string and store it in the graph for k_nearest lookups."""
     tag = f"__query__{text}"
     if g.get_embedding(tag) is None:
         response = client.embeddings.create(
@@ -418,168 +371,129 @@ def embed_query(client, g: Graph, text: str) -> str:
 
 
 def run_queries(g: Graph, client):
-    """Run queries that showcase graph traversal, semantic search, and hybrid."""
+    """Showcase graph traversal, semantic search, and hybrid queries."""
     print("\n" + "═" * 60)
     print("  KNOWLEDGE GRAPH QUERIES")
     print("═" * 60)
 
-    # ── Section A: Pure Traversal (structural — what vector DBs can't do) ──
+    # ── A. Graph Traversal ──
 
     print("\n  ── A. Graph Traversal ──\n")
 
-    # 1. Direct neighbors
     print_query(
-        1,
-        "What does the graph know about Europa?",
+        1, "What is Europa connected to in the graph?",
         'g.v("europa").out().all()',
         g.v("europa").out().all(),
     )
 
-    # 2. Reverse traversal
     print_query(
-        2,
-        "Which entities are linked to water?",
+        2, "Which entities mention or relate to water?",
         'g.v("water").inc().all()',
         g.v("water").inc().all(),
     )
 
-    # 3. Two-hop traversal
     print_query(
-        3,
-        "Jezero Crater → located on which body → what may it harbor?",
+        3, "Where is Jezero Crater located, and what might that body harbor?",
         'g.v("jezero crater").out("located_in").out("may_harbor").all()',
         g.v("jezero crater").out("located_in").out("may_harbor").all(),
     )
 
-    # 4. Reverse two-hop
     print_query(
-        4,
-        "Which missions target bodies that may harbor life?",
+        4, "Which missions target bodies that may harbor life?",
         'g.v("life").inc("may_harbor").inc("targets").all()',
         g.v("life").inc("may_harbor").inc("targets").all(),
     )
 
-    # ── Section B: Pure Semantic (embedding-based) ──
+    # ── B. Semantic Search ──
 
     print("\n  ── B. Semantic Search ──\n")
 
-    # 5. Nearest neighbors to "signs of life"
     tag5 = embed_query(client, g, "signs of life")
     print_query(
-        5,
-        'Nearest entities to "signs of life"',
+        5, 'Nearest entities to "signs of life"',
         'g.v().k_nearest("signs of life", k=5).all()',
         g.v().k_nearest(tag5, k=5).all(),
     )
 
-    # 6. Nearest neighbors to "ocean world"
     tag6 = embed_query(client, g, "ocean world")
     print_query(
-        6,
-        'Nearest entities to "ocean world"',
+        6, 'Nearest entities to "ocean world"',
         'g.v().k_nearest("ocean world", k=5).all()',
         g.v().k_nearest(tag6, k=5).all(),
     )
 
-    # ── Section C: Hybrid — traversal + semantic filtering ──
+    # ── C. Hybrid: Graph Traversal + Semantic Filtering ──
 
     print("\n  ── C. Hybrid: Graph Traversal + Semantic Filtering ──\n")
 
-    # 7. BFS from Europa (2 hops) → semantic filter for "water and ice"
-    #    First explore Europa's neighborhood, then rank by relevance to water
     tag7 = embed_query(client, g, "water and ice")
     print_query(
-        7,
-        'Europa BFS(2) → semantic filter "water and ice"',
+        7, 'Explore two hops from Europa, then find the most relevant to "water and ice"',
         'g.v("europa").bfs(max_depth=2).k_nearest("water and ice", k=3).all()',
         g.v("europa").bfs(max_depth=2).k_nearest(tag7, k=3).all(),
     )
 
-    # 8. Bodies that may harbor life → semantic rank by "extraterrestrial biology"
-    #    Traverse structure first, then let embeddings rank them
     tag8 = embed_query(client, g, "extraterrestrial biology")
     print_query(
-        8,
-        'Bodies that may harbor life → ranked by "extraterrestrial biology"',
+        8, 'Which bodies may harbor life, ranked by relevance to "extraterrestrial biology"?',
         'g.v("life").inc("may_harbor").k_nearest("extraterrestrial biology", k=5).all()',
         g.v("life").inc("may_harbor").k_nearest(tag8, k=5).all(),
     )
 
-    # 9. Enceladus neighbors → semantic filter for "ocean"
-    #    What's around Enceladus that's most ocean-related?
     tag9 = embed_query(client, g, "ocean")
     print_query(
-        9,
-        'Enceladus outbound → semantic filter "ocean"',
+        9, 'What is Enceladus connected to that is most related to "ocean"?',
         'g.v("enceladus").out().k_nearest("ocean", k=3).all()',
         g.v("enceladus").out().k_nearest(tag9, k=3).all(),
     )
 
-    # 10. NASA spacecraft → their targets → semantic filter for "habitable world"
-    #     Multi-hop traversal + semantic ranking at the end
     tag10 = embed_query(client, g, "habitable world")
     print_query(
-        10,
-        'NASA spacecraft → targets → ranked by "habitable world"',
+        10, 'What do NASA spacecraft target, ranked by "habitable world"?',
         'g.v("nasa").inc("explored_by").out("targets").k_nearest("habitable world", k=5).all()',
         g.v("nasa").inc("explored_by").out("targets").k_nearest(tag10, k=5).all(),
     )
 
-    # 11. Semantic → Traversal: find "icy moon" → traverse may_harbor
-    #     Start from embeddings, then follow graph structure
     tag11 = embed_query(client, g, "icy moon")
     print_query(
-        11,
-        'Semantic "icy moon" → traverse may_harbor edges',
+        11, 'Find entities similar to "icy moon", then see what they may harbor',
         'g.v().k_nearest("icy moon", k=3).out("may_harbor").all()',
         g.v().k_nearest(tag11, k=3).out("may_harbor").all(),
     )
 
-    # 12. Reverse concept chain + semantic filter: life ← may_harbor ← targets → "robotic spacecraft"
-    #     Which missions target habitable bodies? Rank by "robotic spacecraft" relevance
     tag12 = embed_query(client, g, "robotic spacecraft")
     print_query(
-        12,
-        'Missions targeting habitable bodies → ranked by "robotic spacecraft"',
+        12, 'Which missions target habitable bodies, ranked by "robotic spacecraft"?',
         'g.v("life").inc("may_harbor").inc("targets").k_nearest("robotic spacecraft", k=3).all()',
         g.v("life").inc("may_harbor").inc("targets").k_nearest(tag12, k=3).all(),
     )
 
-    # 13. Double semantic sandwich: semantic → traversal → semantic
-    #     Find "space exploration" entities → follow edges → filter for "habitable world"
     tag13a = embed_query(client, g, "space exploration mission")
     print_query(
-        13,
-        'Semantic "space exploration" → out() → semantic "habitable world"',
+        13, 'Find "space exploration" entities, follow their edges, then filter for "habitable world"',
         'g.v().k_nearest("space exploration", k=10).out().k_nearest("habitable world", k=5).all()',
         g.v().k_nearest(tag13a, k=10).out().k_nearest(tag10, k=5).all(),
     )
 
-    # 14. Semantic → Traversal → Semantic: "deep space probe" → targets → "frozen world"
-    tag14 = embed_query(client, g, "deep space probe")
+    tag14a = embed_query(client, g, "deep space probe")
     tag14b = embed_query(client, g, "frozen world")
     print_query(
-        14,
-        'Semantic "deep space probe" → targets → semantic "frozen world"',
+        14, 'Find "deep space probe" entities, see what they target, then filter for "frozen world"',
         'g.v().k_nearest("deep space probe", k=5).out("targets").k_nearest("frozen world", k=3).all()',
-        g.v().k_nearest(tag14, k=5).out("targets").k_nearest(tag14b, k=3).all(),
+        g.v().k_nearest(tag14a, k=5).out("targets").k_nearest(tag14b, k=3).all(),
     )
 
-    # ── Stats ──
     total_edges = g.v().out().count()
     print(f"\n{'─' * 60}")
     print(f"  Graph stats: {total_edges} edges")
     print(f"{'─' * 60}")
 
 
-# ── Extraction Pipeline ────────────────────────────────────────────────────
-
 def extract_and_save(client) -> tuple[list[dict], list[tuple[str, str, str]], dict[str, list[float]]]:
     """Full pipeline: text → entities → relationships → resolve → embed → save."""
     text = load_text(TEXT_FILE)
     print(f"Source text: {len(text)} chars\n")
 
-    # Step 1: Extract entities
     print("Step 1: Extracting entities...")
     start = time.time()
     raw_entities = extract_entities(client, text)
@@ -588,26 +502,22 @@ def extract_and_save(client) -> tuple[list[dict], list[tuple[str, str, str]], di
     for etype, count in sorted(type_counts.items()):
         print(f"    {etype}: {count}")
 
-    # Step 2: Extract relationships
     print("\nStep 2: Extracting relationships...")
     start = time.time()
     raw_relationships = extract_relationships(client, text, raw_entities)
     print(f"  Found {len(raw_relationships)} relationships in {time.time() - start:.1f}s")
 
-    # Step 3: Resolve entities
     print("\nStep 3: Resolving entities...")
     entities, triples = resolve_entities(raw_entities, raw_relationships)
     print(f"  {len(raw_entities)} raw → {len(entities)} resolved entities")
     print(f"  {len(raw_relationships)} raw → {len(triples)} valid triples")
 
-    # Print sample triples
     print("\n  Sample triples:")
     for s, p, o in triples[:20]:
         print(f"    ({s}) ──[{p}]──▶ ({o})")
     if len(triples) > 20:
         print(f"    ... and {len(triples) - 20} more")
 
-    # Step 4: Generate embeddings
     print(f"\nStep 4: Generating embeddings for {len(entities)} entities...")
     start = time.time()
     embeddings = embed_entities(client, entities)
@@ -618,17 +528,8 @@ def extract_and_save(client) -> tuple[list[dict], list[tuple[str, str, str]], di
     return entities, triples, embeddings
 
 
-def load_text(path: str) -> str:
-    """Read the full text file."""
-    with open(path, "r") as f:
-        return f.read().strip()
-
-
-# ── Main ────────────────────────────────────────────────────────────────────
-
 def print_stats(g: Graph):
     """Print graph size statistics."""
-    import glob
     total_edges = g.v().out().count()
     files = [
         f for f in glob.glob("cog_home/AstrobiologyKG/**/*", recursive=True)
