@@ -26,13 +26,21 @@ Queries                  → traversal, semantic, and hybrid
 # 1. Set your OpenAI API key
 echo 'OPENAI_API_KEY=sk-...' > .env
 
-# 2. Run (creates venv, installs deps, runs the demo)
+# 2. Run (creates venv, installs deps, runs ETL + queries)
 ./run.sh
 ```
 
 On the first run, the pipeline calls OpenAI to extract entities and relationships from `planetary-habitability.txt` and caches the results in `kg_data.json`. Subsequent runs skip extraction and go straight to graph construction and queries.
 
 Use `./run.sh --clean` to wipe the venv and database and start fresh.
+
+## Project Structure
+
+| File | Purpose |
+|---|---|
+| `etl.py` | Extract entities/relationships, resolve, embed, and load into CogDB |
+| `query.py` | Open the CogDB graph and run traversal, semantic, and hybrid queries |
+| `run.sh` | One-command runner: sets up venv, runs `etl.py` then `query.py` |
 
 ## What the Queries Demonstrate
 
